@@ -15,7 +15,7 @@ name                     : "Blake Gilliland"
 description              : "Data Science Portfolio"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
-repository               : "blakegilliland/blakegilliland.github.io"
+repository               : "blakegilliland/bgilliland.github.io"
 
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
@@ -87,8 +87,8 @@ analytics:
 author:
   name             : "Blake Gilliland"
   avatar           : "/images/ProAvatar.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Data Scientist | Discover Financial Services"
-  location         : "Greater Chicago Area, IL"
+  bio              : "Team Lead, Data Scientist | Home Partners of America"
+  location         : "Chicago, IL"
   email            : "bagilliland5328@gmail.com"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
@@ -98,7 +98,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "blakegilliland"
+  github           : "bgilliland"
   gitlab           :
   google_plus      :
   keybase          :
