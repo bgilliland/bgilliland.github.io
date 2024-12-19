@@ -20,12 +20,18 @@ Before HPA, I served as the senior data scientist for Discover Financial's DCX d
 
 ## Skills
 I use Python primarily for statistical modeling. See the below libraries I have experience with.
+
 Data Mining: `pandas`, `numpy`
+
 Visualization: `seaborn`, `matplotlib`
+
 Cloud: `boto3`
+
 Modeling: `sklearn`, `tensorflow`, `keras`, `xgboost`, `lightgbm`, `pymc-marketing`, `statsmodels`, `prophet`, `scipy`
 
-I have a lot of experience with R, and frankly I think it is an awesome language for scripting, but it can be slow and is not ideal for OOP or productionalization so I don't as much as I'd like to. I'm an expert with SQL and prefer to use it as much as I can before doing analysis in Python or some other tool. I have a lot of experience with Tableau, which is my preferred dashboarding software. I also have some experience with PowerBI.
+Version Control: `git`
+
+I have a lot of experience with R, and frankly I think it is an awesome language for scripting, but it can be slow and is not ideal for OOP or productionalization so I don't as much as I'd like to. I'm an expert with SQL and prefer to use it as much as I can before doing analysis in Python or some other tool. I have a lot of experience with Tableau, which is my preferred dashboarding software. I also have some experience with PowerBI. Lambda, Fargate, and EC2 are the services from AWS I have the most experience with. I use Terraform for deployment.
 
 On top of this, I have very strong leadership, communication, and relationship building skills. They have set me up for success both as a people leader in a data science organization as well as a business leader alongside executives looking to harness the power of data science to improve and understand their own processes.
 
