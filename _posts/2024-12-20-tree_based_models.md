@@ -1,13 +1,12 @@
 ---
-title: "Classifying Forest Tree Cover Types"
-date: "2024-12-20"
-xcerpt: "Tree based models in `sklearn` to Classify Forest Cover Types"
+layout: post
+title: "Classifying Trees with Trees"
+date: 2024-12-20
 image_folder: /images/tree_based_models_files/
 ---
+## Project Outset
 
-## Classifying Forest Tree Cover Types
-
-This project uses the forest tree cover type data found on [Kaggle][https://www.kaggle.com/datasets/uciml/forest-cover-type-dataset]. The directive is to classify each of the 7 possible forest cover types using this data. There are 500k+ records and 12 distinct fields (after reverting the One Hot Encoded fields back to a regular categorical). 
+This project uses the forest tree cover type data found on [Kaggle](https://www.kaggle.com/datasets/uciml/forest-cover-type-dataset). The directive is to classify each of the 7 possible forest cover types using this data. There are 500k+ records and 12 distinct fields (after reverting the One Hot Encoded fields back to a regular categorical). 
 
 This article will show how using `sklearn` can solve this problem. We will be focusing on the usage of trees and forests. Linear models and boosting techniques are not used, although they very well could be good solutions!
 
@@ -81,7 +80,7 @@ data_nohe["Soil_Type"] = pd.Categorical(data_nohe[soil_cols].idxmax(axis=1).str.
 # need to drop the old one hot encoded fields using a for loop
 data_nohe.drop(columns=wild_cols + soil_cols,inplace=True)
 
-data_nohe
+data_nohe.head()
 ```
 
 
@@ -207,111 +206,8 @@ data_nohe
       <td>0</td>
       <td>28</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>581007</th>
-      <td>2396.0</td>
-      <td>85.0</td>
-      <td>17.0</td>
-      <td>108.0</td>
-      <td>240.0</td>
-      <td>237.0</td>
-      <td>118.0</td>
-      <td>837.0</td>
-      <td>0.342020</td>
-      <td>0.453990</td>
-      <td>0.939693</td>
-      <td>-0.891007</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581008</th>
-      <td>2391.0</td>
-      <td>67.0</td>
-      <td>12.0</td>
-      <td>95.0</td>
-      <td>240.0</td>
-      <td>237.0</td>
-      <td>119.0</td>
-      <td>845.0</td>
-      <td>0.325568</td>
-      <td>0.469472</td>
-      <td>0.945519</td>
-      <td>-0.882948</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581009</th>
-      <td>2386.0</td>
-      <td>60.0</td>
-      <td>7.0</td>
-      <td>90.0</td>
-      <td>236.0</td>
-      <td>241.0</td>
-      <td>130.0</td>
-      <td>854.0</td>
-      <td>0.292372</td>
-      <td>0.358368</td>
-      <td>0.956305</td>
-      <td>-0.933580</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581010</th>
-      <td>2384.0</td>
-      <td>60.0</td>
-      <td>5.0</td>
-      <td>90.0</td>
-      <td>230.0</td>
-      <td>245.0</td>
-      <td>143.0</td>
-      <td>864.0</td>
-      <td>0.258819</td>
-      <td>0.173648</td>
-      <td>0.965926</td>
-      <td>-0.984808</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581011</th>
-      <td>2383.0</td>
-      <td>60.0</td>
-      <td>4.0</td>
-      <td>67.0</td>
-      <td>231.0</td>
-      <td>244.0</td>
-      <td>141.0</td>
-      <td>875.0</td>
-      <td>0.224951</td>
-      <td>0.258819</td>
-      <td>0.974370</td>
-      <td>-0.965926</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
   </tbody>
 </table>
-<p>581012 rows × 14 columns</p>
 </div>
 
 
@@ -349,7 +245,7 @@ data_nohe.drop(columns=['Hillshade_9am','Hillshade_3pm','SinSlope'],inplace=True
 
 
 ```python
-data_nohe
+data_nohe.head()
 ```
 
 
@@ -457,93 +353,8 @@ data_nohe
       <td>0</td>
       <td>28</td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>581007</th>
-      <td>2396.0</td>
-      <td>85.0</td>
-      <td>17.0</td>
-      <td>108.0</td>
-      <td>237.0</td>
-      <td>837.0</td>
-      <td>0.453990</td>
-      <td>0.939693</td>
-      <td>-0.891007</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581008</th>
-      <td>2391.0</td>
-      <td>67.0</td>
-      <td>12.0</td>
-      <td>95.0</td>
-      <td>237.0</td>
-      <td>845.0</td>
-      <td>0.469472</td>
-      <td>0.945519</td>
-      <td>-0.882948</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581009</th>
-      <td>2386.0</td>
-      <td>60.0</td>
-      <td>7.0</td>
-      <td>90.0</td>
-      <td>241.0</td>
-      <td>854.0</td>
-      <td>0.358368</td>
-      <td>0.956305</td>
-      <td>-0.933580</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581010</th>
-      <td>2384.0</td>
-      <td>60.0</td>
-      <td>5.0</td>
-      <td>90.0</td>
-      <td>245.0</td>
-      <td>864.0</td>
-      <td>0.173648</td>
-      <td>0.965926</td>
-      <td>-0.984808</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>581011</th>
-      <td>2383.0</td>
-      <td>60.0</td>
-      <td>4.0</td>
-      <td>67.0</td>
-      <td>244.0</td>
-      <td>875.0</td>
-      <td>0.258819</td>
-      <td>0.974370</td>
-      <td>-0.965926</td>
-      <td>2</td>
-      <td>1</td>
-    </tr>
   </tbody>
 </table>
-<p>581012 rows × 11 columns</p>
 </div>
 
 
@@ -631,7 +442,7 @@ rand_search = RandomizedSearchCV(
     n_iter=100,
     scoring='f1_macro',
     cv=strat_kfold,
-    verbose=2,
+    verbose=1,
     n_jobs=-1
 )
 
@@ -644,509 +455,9 @@ print(f"Validation f1: {f1:.4f}")
 ```
 
     Fitting 5 folds for each of 100 candidates, totalling 500 fits
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=  10.4s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=  10.4s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=  10.4s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=  10.5s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=  10.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.2s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   8.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   8.7s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=  10.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=  10.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=  10.0s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   9.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=30; total time=   9.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   9.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  10.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.0s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=30; total time=   9.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=30; total time=   9.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=100; total time=   9.0s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   9.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   9.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=  10.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=  10.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=  10.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=  10.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=  10.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=  10.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=  10.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=  10.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  10.2s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  10.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  10.0s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=  11.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=  11.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  11.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  12.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  12.3s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  12.4s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=  11.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=100; total time=  12.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=100; total time=  10.0s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=100; total time=  10.3s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=100; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=   9.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=   9.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=100; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=100; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=100; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=100; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=  10.3s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=  10.3s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   9.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   9.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=  10.3s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=  10.2s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.1s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=  10.3s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=  10.1s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=  10.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=  10.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=  10.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   9.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   9.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=30; total time=   9.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=30; total time=  10.0s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=30; total time=   9.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=30; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   9.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=50; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=30; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=30; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  10.4s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  10.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  12.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=  11.4s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  12.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  12.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=  11.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=  11.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=  11.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=  11.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=50; total time=  10.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=50; total time=   9.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=50; total time=   9.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=50; total time=  10.0s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=50; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=  10.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  10.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=  10.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   9.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   9.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   9.3s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   9.4s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=10; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=100; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=100; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.1s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.3s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=50; total time=   8.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.4s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=30; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=100; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=100; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   7.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   7.9s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   8.0s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=10; total time=   7.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   7.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   7.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   7.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   8.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=50, min_samples_split=100; total time=   7.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   8.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   8.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   8.7s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   8.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   8.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.1s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   7.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   8.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=100; total time=   7.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=   8.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   8.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   8.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=50; total time=   8.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   8.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   9.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=  10.0s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=  10.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=  10.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=  10.1s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=10000, min_samples_leaf=5, min_samples_split=50; total time=   9.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   9.2s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=   9.3s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=10, min_samples_split=10; total time=  10.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   9.3s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=7000, min_samples_leaf=20, min_samples_split=30; total time=   9.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   9.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=   9.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=   9.7s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=   9.4s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=10; total time=   9.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.0s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=100; total time=   9.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.2s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.1s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=10; total time=   8.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=10; total time=   8.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=10; total time=   8.1s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=30; total time=   8.9s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=10; total time=   8.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=50, min_samples_split=10; total time=   8.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   8.5s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.1s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=5, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   9.0s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=50; total time=   8.8s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=10; total time=   8.4s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=10; total time=   8.2s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=10; total time=   8.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=10; total time=   8.3s
-    [CV] END criterion=gini, max_depth=40, max_leaf_nodes=7000, min_samples_leaf=50, min_samples_split=10; total time=   8.3s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=20, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=10; total time=   8.5s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.1s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=gini, max_depth=80, max_leaf_nodes=10000, min_samples_leaf=10, min_samples_split=10; total time=   9.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=50; total time=   8.6s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=50; total time=   8.4s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=50; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=80, max_leaf_nodes=5000, min_samples_leaf=10, min_samples_split=10; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   8.5s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=20, min_samples_split=100; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   8.8s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   8.9s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   8.6s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   8.7s
-    [CV] END criterion=entropy, max_depth=40, max_leaf_nodes=5000, min_samples_leaf=5, min_samples_split=100; total time=   8.5s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.2s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.1s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   8.0s
-    [CV] END criterion=gini, max_depth=20, max_leaf_nodes=10000, min_samples_leaf=20, min_samples_split=30; total time=   7.6s
-    Best Parameters: {'min_samples_split': 10, 'min_samples_leaf': 5, 'max_leaf_nodes': 10000, 'max_depth': 80, 'criterion': 'gini'}
-    Best Cross-Validation f1: 0.8767663526862457
-    Validation f1: 0.8821
+    Best Parameters: {'min_samples_split': 10, 'min_samples_leaf': 5, 'max_leaf_nodes': 10000, 'max_depth': 40, 'criterion': 'entropy'}
+    Best Cross-Validation f1: 0.8833766879741359
+    Validation f1: 0.8917
 
 
 Let's fit a learning curve using the best estimator to ensure we have a relatively stable model. This will show us whether we are overfitting or not, which trees tend to do.
@@ -1202,14 +513,14 @@ print(classification_report(y_test,y_test_pred))
     
                1       0.93      0.93      0.93     42368
                2       0.94      0.94      0.94     56661
-               3       0.91      0.92      0.92      7151
-               4       0.84      0.80      0.82       549
-               5       0.82      0.75      0.78      1899
-               6       0.87      0.84      0.86      3473
-               7       0.95      0.92      0.94      4102
+               3       0.92      0.93      0.93      7151
+               4       0.86      0.81      0.83       549
+               5       0.81      0.78      0.80      1899
+               6       0.88      0.86      0.87      3473
+               7       0.95      0.94      0.94      4102
     
         accuracy                           0.93    116203
-       macro avg       0.89      0.87      0.88    116203
+       macro avg       0.90      0.88      0.89    116203
     weighted avg       0.93      0.93      0.93    116203
     
 
@@ -1315,57 +626,57 @@ importances_df
     <tr>
       <th>0</th>
       <td>Elevation</td>
-      <td>0.350</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Horizontal_Distance_To_Roadways</td>
-      <td>0.153</td>
+      <td>0.415</td>
     </tr>
     <tr>
       <th>5</th>
       <td>Horizontal_Distance_To_Fire_Points</td>
-      <td>0.140</td>
+      <td>0.128</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Horizontal_Distance_To_Roadways</td>
+      <td>0.127</td>
     </tr>
     <tr>
       <th>10</th>
       <td>Soil_Type</td>
-      <td>0.114</td>
+      <td>0.119</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Horizontal_Distance_To_Hydrology</td>
-      <td>0.061</td>
+      <td>0.049</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Vertical_Distance_To_Hydrology</td>
-      <td>0.045</td>
+      <td>0.037</td>
     </tr>
     <tr>
       <th>9</th>
       <td>Wilderness_Area</td>
-      <td>0.035</td>
-    </tr>
-    <tr>
-      <th>6</th>
-      <td>SinAspect</td>
-      <td>0.032</td>
+      <td>0.036</td>
     </tr>
     <tr>
       <th>8</th>
       <td>CosAspect</td>
-      <td>0.029</td>
+      <td>0.031</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>SinAspect</td>
+      <td>0.025</td>
     </tr>
     <tr>
       <th>4</th>
       <td>Hillshade_Noon</td>
-      <td>0.024</td>
+      <td>0.017</td>
     </tr>
     <tr>
       <th>7</th>
       <td>CosSlope</td>
-      <td>0.017</td>
+      <td>0.016</td>
     </tr>
   </tbody>
 </table>
@@ -1384,15 +695,15 @@ cross_val_score(clf,X_new,y_train,cv=strat_kfold,n_jobs=-1,verbose=2,scoring='f1
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
 
 
-    [CV] END .................................................... total time=   6.3s
-    [CV] END .................................................... total time=   6.3s
-    [CV] END .................................................... total time=   6.3s
-    [CV] END .................................................... total time=   6.3s
-    [CV] END .................................................... total time=   6.4s
+    [CV] END .................................................... total time=   4.7s
+    [CV] END .................................................... total time=   4.7s
+    [CV] END .................................................... total time=   4.7s
+    [CV] END .................................................... total time=   4.7s
+    [CV] END .................................................... total time=   4.8s
 
 
-    [Parallel(n_jobs=-1)]: Done   2 out of   5 | elapsed:   56.2s remaining:  1.4min
-    [Parallel(n_jobs=-1)]: Done   5 out of   5 | elapsed:   56.3s finished
+    [Parallel(n_jobs=-1)]: Done   2 out of   5 | elapsed:    4.9s remaining:    7.4s
+    [Parallel(n_jobs=-1)]: Done   5 out of   5 | elapsed:    4.9s finished
 
 
 
@@ -1454,14 +765,14 @@ print(classification_report(y_test,y_test_pred))
     
                1       0.93      0.93      0.93     42368
                2       0.94      0.94      0.94     56661
-               3       0.91      0.92      0.91      7151
-               4       0.86      0.80      0.83       549
-               5       0.84      0.78      0.81      1899
-               6       0.86      0.83      0.84      3473
-               7       0.93      0.93      0.93      4102
+               3       0.91      0.93      0.92      7151
+               4       0.86      0.81      0.83       549
+               5       0.82      0.79      0.80      1899
+               6       0.87      0.84      0.85      3473
+               7       0.94      0.93      0.94      4102
     
         accuracy                           0.93    116203
-       macro avg       0.89      0.88      0.88    116203
+       macro avg       0.90      0.88      0.89    116203
     weighted avg       0.93      0.93      0.93    116203
     
 
@@ -1476,8 +787,8 @@ X_new.columns
 
     Index(['Elevation', 'Horizontal_Distance_To_Fire_Points',
            'Horizontal_Distance_To_Roadways', 'Soil_Type',
-           'Horizontal_Distance_To_Hydrology', 'Wilderness_Area',
-           'Vertical_Distance_To_Hydrology'],
+           'Horizontal_Distance_To_Hydrology', 'Vertical_Distance_To_Hydrology',
+           'Wilderness_Area'],
           dtype='object')
 
 
@@ -1514,7 +825,7 @@ rand_search = RandomizedSearchCV(
     n_iter=25,
     scoring='f1_macro',
     cv=strat_kfold,
-    verbose=2,
+    verbose=1,
     random_state=rs,
     n_jobs=-1
 )
@@ -1527,134 +838,9 @@ print(f"Validation f1: {f1:.4f}")
 ```
 
     Fitting 5 folds for each of 25 candidates, totalling 125 fits
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  25.6s
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  26.3s
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  25.9s
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  25.3s
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  25.6s
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 3.0min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 3.1min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 3.1min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 3.1min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 3.1min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=2, min_samples_split=5, n_estimators=20; total time= 1.4min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=2, min_samples_split=5, n_estimators=20; total time= 1.4min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=2, min_samples_split=5, n_estimators=20; total time= 1.4min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=2, min_samples_split=5, n_estimators=20; total time= 1.4min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=2, min_samples_split=5, n_estimators=20; total time= 1.3min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 5.3min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 5.3min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 5.3min
-    [CV] END max_depth=50, max_features=0.8, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.6min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 5.0min
-    [CV] END max_depth=50, max_features=0.8, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.6min
-    [CV] END max_depth=50, max_features=0.8, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.6min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 5.1min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 5.1min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 5.1min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 5.1min
-    [CV] END max_depth=50, max_features=0.8, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.7min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=20; total time=  29.6s
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.0min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.0min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.0min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=20; total time=  30.1s
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=20; total time=  29.6s
-    [CV] END max_depth=50, max_features=0.8, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.8min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=20; total time=  30.0s
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=20; total time=  30.2s
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.0min
-    [CV] END max_depth=100, max_features=0.6, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=50; total time= 2.0min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=50; total time= 1.2min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 2.9min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=100, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=2, min_samples_split=5, n_estimators=50; total time= 1.1min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 3.0min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 3.0min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 2.9min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=10000, max_samples=0.9, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 2.9min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 1.4min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 1.4min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 1.4min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 1.4min
-    [CV] END max_depth=75, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 1.4min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.7min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  27.4s
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 5.2min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  28.1s
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  28.1s
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  27.8s
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.7min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.7min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=7500, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=20; total time=  28.0s
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.7min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.7min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=100; total time= 2.3min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=100; total time= 2.3min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=100; total time= 2.3min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=100; total time= 2.2min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=2, min_samples_split=10, n_estimators=100; total time= 2.2min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=5, min_samples_split=5, n_estimators=100; total time= 6.5min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=5, min_samples_split=5, n_estimators=100; total time= 6.5min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=5, min_samples_split=5, n_estimators=100; total time= 6.5min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=5, min_samples_split=5, n_estimators=100; total time= 6.5min
-    [CV] END max_depth=100, max_features=0.8, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=5, min_samples_split=5, n_estimators=100; total time= 6.5min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.9, min_samples_leaf=2, min_samples_split=10, n_estimators=50; total time= 3.1min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.9, min_samples_leaf=2, min_samples_split=10, n_estimators=50; total time= 3.2min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.9, min_samples_leaf=2, min_samples_split=10, n_estimators=50; total time= 3.4min
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=20; total time=  26.0s
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 3.0min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 3.0min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 3.0min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.9, min_samples_leaf=2, min_samples_split=10, n_estimators=50; total time= 3.3min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.9, min_samples_leaf=2, min_samples_split=10, n_estimators=50; total time= 3.3min
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 2.9min
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=20; total time=  26.0s
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=20; total time=  26.1s
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=20; total time=  26.3s
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=5000, max_samples=0.6, min_samples_leaf=5, min_samples_split=10, n_estimators=20; total time=  26.4s
-    [CV] END max_depth=50, max_features=log2, max_leaf_nodes=7500, max_samples=0.9, min_samples_leaf=3, min_samples_split=5, n_estimators=100; total time= 2.8min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 2.8min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 2.8min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 2.8min
-    [CV] END max_depth=75, max_features=0.6, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 4.7min
-    [CV] END max_depth=75, max_features=0.6, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 4.7min
-    [CV] END max_depth=75, max_features=0.6, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 4.7min
-    [CV] END max_depth=75, max_features=0.6, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 4.7min
-    [CV] END max_depth=75, max_features=0.6, max_leaf_nodes=10000, max_samples=0.75, min_samples_leaf=5, min_samples_split=10, n_estimators=100; total time= 4.8min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=20; total time=  28.6s
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 2.8min
-    [CV] END max_depth=75, max_features=0.8, max_leaf_nodes=5000, max_samples=0.75, min_samples_leaf=3, min_samples_split=5, n_estimators=50; total time= 2.8min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=20; total time=  28.2s
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=7500, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.5min
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=20; total time=  28.3s
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=20; total time=  28.2s
-    [CV] END max_depth=100, max_features=log2, max_leaf_nodes=10000, max_samples=0.6, min_samples_leaf=5, min_samples_split=5, n_estimators=20; total time=  27.7s
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=7500, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.4min
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=7500, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.4min
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=7500, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.4min
-    [CV] END max_depth=75, max_features=sqrt, max_leaf_nodes=7500, max_samples=0.75, min_samples_leaf=3, min_samples_split=10, n_estimators=100; total time= 2.4min
     Best Parameters: {'n_estimators': 50, 'min_samples_split': 5, 'min_samples_leaf': 2, 'max_samples': 0.75, 'max_leaf_nodes': 10000, 'max_features': 0.8, 'max_depth': 100}
-    Best Cross-Validation f1: 0.9237390255989004
-    Validation f1: 0.9241
+    Best Cross-Validation f1: 0.9242684279452815
+    Validation f1: 0.9267
 
 
 
@@ -1708,14 +894,14 @@ print(classification_report(y_test,y_test_pred))
     
                1       0.96      0.95      0.96     42368
                2       0.96      0.97      0.96     56661
-               3       0.94      0.96      0.95      7151
-               4       0.92      0.84      0.88       549
-               5       0.94      0.77      0.84      1899
-               6       0.93      0.90      0.92      3473
+               3       0.95      0.96      0.95      7151
+               4       0.92      0.85      0.89       549
+               5       0.93      0.77      0.84      1899
+               6       0.94      0.91      0.92      3473
                7       0.97      0.94      0.96      4102
     
         accuracy                           0.96    116203
-       macro avg       0.95      0.91      0.92    116203
+       macro avg       0.95      0.91      0.93    116203
     weighted avg       0.96      0.96      0.96    116203
     
 
@@ -1732,13 +918,13 @@ conf_mx
 
 
 
-    array([[40329,  1931,     1,     0,    13,     2,    92],
-           [ 1285, 55109,   109,     2,    79,    62,    15],
-           [    0,    98,  6882,    25,     9,   137,     0],
-           [    0,     0,    66,   460,     0,    23,     0],
-           [   28,   374,    28,     0,  1459,    10,     0],
-           [    2,   104,   211,    14,     0,  3142,     0],
-           [  221,    19,     0,     0,     0,     0,  3862]])
+    array([[40337,  1922,     1,     0,    15,     3,    90],
+           [ 1300, 55092,   106,     4,    87,    56,    16],
+           [    0,    97,  6899,    24,    10,   121,     0],
+           [    0,     0,    58,   469,     0,    22,     0],
+           [   25,   366,    28,     0,  1469,    11,     0],
+           [    4,    93,   207,    13,     1,  3155,     0],
+           [  213,    19,     0,     0,     0,     0,  3870]])
 
 
 
@@ -1752,6 +938,12 @@ plt.matshow(norm_conf_mx,cmap=plt.cm.gray)
 _ = plt.xticks(ticks=np.arange(7),labels=np.linspace(1,7,7).astype(int))
 _ = plt.yticks(ticks=np.arange(7),labels=np.linspace(1,7,7).astype(int))
 ```
+
+
+    
+![png](tree_based_models_files/tree_based_models_48_0.png)
+    
+
 
 We confirm the improvement in performance by seeing how the PR curves have shifted further to the top right corner indicating the model is able to further minimize the trade off particularly for those smaller classes.
 
