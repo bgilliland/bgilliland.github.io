@@ -1,6 +1,6 @@
 ---
 title: "Non-Linear Regression Modeling with Bootstrapping: mtcars"
-date: "2021-08-07"
+date: "2022-05-07"
 excerpt: "tidymodels for scalable regression analysis"
 mathjax: "true"
 ---

@@ -7,7 +7,7 @@ header:
 
 Contact: bagilliland5328@gmail.com
 
-I am a business leader as well as an analytical leader at Home Partners of America. HPA is a portfolio company of Blackstone, based in Chicago, IL. They specialize in rent-to-own single-family homes as well as traditional rentals in several markets throughout the United States.
+I am the leader of the Resident Success and Marketing work-stream at Home Partners of America. HPA is a portfolio company of Blackstone, based in Chicago, IL. They specialize in rent-to-own single-family homes as well as traditional rentals in several markets throughout the United States.
 
 My team works closely with HPA's senior leadership to develop analytically driven strategies, such as predictive machine learning
 models, prescriptive statistics, A/B tests, custom algorithms, and data visualization that will further the satisfaction and success of our residents. We care primarily about the resident experience and we look for opportunities within our lease operations to make life as good as possible for them. A sample of the high impact projects I've led:

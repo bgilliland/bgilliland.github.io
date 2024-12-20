@@ -1,6 +1,6 @@
 ---
 title: "Logistic Regression: Modeling Bank Account Closures"
-date: 2021-08-14
+date: "2021-12-14"
 excerpt: "Using the `tidymodels` framework for logistic regression"
 output: pdf_document
 mathjax: true

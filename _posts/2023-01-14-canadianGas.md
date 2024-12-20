@@ -1,6 +1,6 @@
 ---
 title: "Time Series Analysis: Canadian Gas Production (Jan. 1960 - Feb. 2005)"
-date: "2021-08-01"
+date: "2023-01-14"
 excerpt: "Tidyverts for Time Series Forecasting"
 mathjax: true
 ---
