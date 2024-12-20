@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "tree_based_models"
 date: 2024-12-20
 image_folder: /images/tree_based_models_files/
