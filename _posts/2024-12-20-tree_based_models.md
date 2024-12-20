@@ -1,11 +1,11 @@
 ---
-layout: post
 title: "Classifying Forest Tree Cover Types"
-excerpt: "Tree based models in `sklearn` to Classify Forest Cover Types"
-date: 2024-12-20
+date: "2024-12-20"
+xcerpt: "Tree based models in `sklearn` to Classify Forest Cover Types"
 image_folder: /images/tree_based_models_files/
 ---
-# Classifying Forest Tree Cover Types
+
+## Classifying Forest Tree Cover Types
 
 This project uses the forest tree cover type data found on [Kaggle][https://www.kaggle.com/datasets/uciml/forest-cover-type-dataset]. The directive is to classify each of the 7 possible forest cover types using this data. There are 500k+ records and 12 distinct fields (after reverting the One Hot Encoded fields back to a regular categorical). 
 
