@@ -1,5 +1,6 @@
 ---
 title: "Classifying Trees With Trees"
+excerpt: "Tree-based models for classification in sklearn"
 date: 2024-12-20
 ---
 ## Project Outset
