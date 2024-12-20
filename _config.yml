@@ -87,8 +87,8 @@ analytics:
 author:
   name             : "Blake Gilliland"
   avatar           : "/images/ProAvatar.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Team Lead, Data Scientist | Home Partners of America"
-  location         : "Chicago, IL"
+  bio              : "Team Lead, Data Scientist @ Home Partners of America"
+  location         : "Columbus, OH"
   email            : "bagilliland5328@gmail.com"
   uri              :
   home             : # null (default), "absolute or relative url to link to author home"
