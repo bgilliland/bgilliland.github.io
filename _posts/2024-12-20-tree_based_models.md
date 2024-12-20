@@ -1,7 +1,6 @@
 ---
-title: "tree_based_models"
+title: "Classifying Trees With Trees"
 date: 2024-12-20
-image_folder: /images/
 ---
 ## Project Outset
 
@@ -498,7 +497,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_28_1.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_28_1.png)
     
 
 
@@ -542,7 +541,7 @@ _ = plt.yticks(ticks=np.arange(7),labels=np.linspace(1,7,7).astype(int))
 
 
     
-![png](tree_based_models_files/tree_based_models_31_0.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_31_0.png)
     
 
 
@@ -577,7 +576,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_33_0.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_33_0.png)
     
 
 
@@ -749,7 +748,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_37_1.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_37_1.png)
     
 
 
@@ -877,7 +876,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_44_1.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_44_1.png)
     
 
 
@@ -940,7 +939,7 @@ _ = plt.yticks(ticks=np.arange(7),labels=np.linspace(1,7,7).astype(int))
 
 
     
-![png](tree_based_models_files/tree_based_models_48_0.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_48_0.png)
     
 
 
@@ -975,7 +974,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_50_0.png)
+![png](/images/2024-12-20-tree_based_models_files/tree_based_models_50_0.png)
     
 
 
