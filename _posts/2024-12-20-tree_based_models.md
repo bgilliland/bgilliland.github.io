@@ -1,9 +1,17 @@
 ---
 layout: post
-title: "tree_based_models"
+title: "Classifying Forest Tree Cover Types"
+excerpt: "Tree based models in `sklearn` to Classify Forest Cover Types"
 date: 2024-12-20
 image_folder: /images/tree_based_models_files/
 ---
+# Classifying Forest Tree Cover Types
+
+This project uses the forest tree cover type data found on [Kaggle][https://www.kaggle.com/datasets/uciml/forest-cover-type-dataset]. The directive is to classify each of the 7 possible forest cover types using this data. There are 500k+ records and 12 distinct fields (after reverting the One Hot Encoded fields back to a regular categorical). 
+
+This article will show how using `sklearn` can solve this problem. We will be focusing on the usage of trees and forests. Linear models and boosting techniques are not used, although they very well could be good solutions!
+
+
 ```python
 import pandas as pd
 import numpy as np
@@ -1180,7 +1188,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_27_1.png)
+![png](tree_based_models_files/tree_based_models_28_1.png)
     
 
 
@@ -1224,7 +1232,7 @@ _ = plt.yticks(ticks=np.arange(7),labels=np.linspace(1,7,7).astype(int))
 
 
     
-![png](tree_based_models_files/tree_based_models_30_0.png)
+![png](tree_based_models_files/tree_based_models_31_0.png)
     
 
 
@@ -1259,7 +1267,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_32_0.png)
+![png](tree_based_models_files/tree_based_models_33_0.png)
     
 
 
@@ -1431,7 +1439,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_36_1.png)
+![png](tree_based_models_files/tree_based_models_37_1.png)
     
 
 
@@ -1684,7 +1692,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_43_1.png)
+![png](tree_based_models_files/tree_based_models_44_1.png)
     
 
 
@@ -1776,7 +1784,7 @@ plt.show()
 
 
     
-![png](tree_based_models_files/tree_based_models_49_0.png)
+![png](tree_based_models_files/tree_based_models_50_0.png)
     
 
 
