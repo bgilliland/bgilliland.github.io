@@ -75,7 +75,7 @@ typing = [
 
 `tox` references a `tox.toml` document (or alternatively a `tox.ini` but they suggest using TOML for less advanced use-cases) to see what environments you want created when you go to test and what their configurations are. You can see in the below snippet at the top of the file we set some global configurations including what version of `tox` we require, what dependencies this project has (for us we need both the `tox-uv` plugin (discussed shortly) and `uv` itself). We also list the names of the environments that we want tested whenever we agnostically run the job (ie we don't need to specify these environments, it is implied we want them run). 
 
-Notice the commands for the two environments we want to create, `test` and `checks`. These will bring in the packages from the specified `dependency_group`'s from the `pyproject.toml` file that `uv` references and then run a series of commands that you specify. In the `test` environment it will run the `pytest`'s which is all of the various unit tests you've designed in your code base to ensure the model is working as expected. `tox` will create that virtual environment from scratch to perform all of the installations of dependencies from scratch and run the code, mimicking what it would be like if a stranger were to run it on their machine for the first time. In the `checks` environment it will do the same but this time instead of unit testing it will just perform formatting 
+Notice the commands for the two environments we want to create, `test` and `checks`. These will bring in the packages from the specified `dependency_group`'s from the `pyproject.toml` file that `uv` references and then run a series of commands that you specify. In the `test` environment it will run the `pytest`'s which is all of the various unit tests you've designed in your code base to ensure the model is working as expected. `tox` will create that virtual environment from scratch to perform all of the installations of dependencies from scratch and run the code, mimicking what it would be like if a stranger were to run it on their machine for the first time. In the `checks` environment it will do the same but this time instead of unit testing it will check code style and potential issues in the `_model` directory. If either set of tests fail then `tox` will report this in a way that is very easy to debug.
 ```
 requires = ["tox>=4.23.2"]
 deps = ["tox-uv", "uv"]
@@ -93,7 +93,7 @@ commands = [["pytest"]]
 description = "Run checks under {base_python}"
 with_dev = "{[test]with_dev}"
 dependency_groups = ["typing"]
-commands = [["black", "."]]
+commands = [["flake8", "_model"]]
 ```
 
 ### Using `uv` with `tox`
